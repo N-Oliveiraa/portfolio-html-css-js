@@ -5,15 +5,25 @@ menuBtn.addEventListener("click", () => {
     // Só funciona se a tela for menor que 768px
     if (window.innerWidth <= 768) {
         menu.classList.toggle("active");
+        menuBtn.classList.toggle("active");
     }
 });
 
 window.addEventListener("resize", () => {
     if (window.innerWidth > 768) {
         menu.classList.remove("active");
+        menuBtn.classList.remove("active");     
     }
 });
 
+const menuLinks = document.querySelectorAll("#menu a");
+
+menuLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        menu.classList.remove("active");
+        menuBtn.classList.remove("active");
+    });
+});
 
 const formulario = document.querySelector('#meu-formulario');
 
@@ -36,7 +46,7 @@ formulario.addEventListener('submit', validarFormulario);
 
 document.addEventListener("DOMContentLoaded", () => {
     const btnTema = document.querySelector('#btn-tema');
-    const body = document.body;
+    const html = document.documentElement;
 
     const iconMoon = document.querySelector('#icon-moon');
     const iconSun = document.querySelector('#icon-sun');
@@ -46,11 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const temaSalvo = localStorage.getItem('tema');
 
         if (temaSalvo === 'dark') {
-            body.classList.add('dark-theme');
+            html.classList.add('dark-theme');
             iconMoon.style.display = "none";
             iconSun.style.display = "inline";
         } else {
-            body.classList.remove('dark-theme');
+            html.classList.remove('dark-theme');
             iconMoon.style.display = "inline";
             iconSun.style.display = "none";
         }
@@ -58,9 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //  Alternar tema
     function alternarTema() {
-        body.classList.toggle('dark-theme');
+        html.classList.toggle('dark-theme');
 
-        if (body.classList.contains('dark-theme')) {
+        if (html.classList.contains('dark-theme')) {
             iconMoon.style.display = "none";
             iconSun.style.display = "inline";
             localStorage.setItem('tema', 'dark');
